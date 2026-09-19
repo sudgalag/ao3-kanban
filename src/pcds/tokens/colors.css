@@ -1,0 +1,59 @@
+/* Photo Card Design System — Color tokens
+   Base hues pulled from the reference mood board (cream photocard paper,
+   near-black studio backdrops, mossy hedge greens, faded denim stripes,
+   rust plush toy, blush skin tones) plus two oklch-derived accents
+   (same lightness/chroma, different hue) for the "mixx-pop" sapphic accent duo. */
+
+:root {
+  /* ---- Base neutrals ---- */
+  --cream-50:  #f7f2e8;
+  --cream-100: #efe6d4;
+  --cream-200: #e4d7bd;
+  --paper-white: #faf8f3;
+
+  --charcoal-900: #14161a;
+  --charcoal-800: #1d2024;
+  --charcoal-700: #2b2e33;
+  --charcoal-500: #565b63;
+  --charcoal-300: #9095a0;
+
+  /* ---- Base hues from photos ---- */
+  --moss-600: #47552f;
+  --moss-400: #7c8f5f;
+  --slate-500: #6d7a8c;
+  --slate-300: #aab4c0;
+  --rust-500: #a75a3a;
+  --rust-300: #d6957a;
+  --blush-400: #e6b9ac;
+
+  /* ---- Accent duo: same L/C, different hue (oklch) ---- */
+  --accent-pink:     oklch(72% 0.11 18);
+  --accent-lavender: oklch(72% 0.11 302);
+  --accent-pink-dim:     oklch(88% 0.045 18);
+  --accent-lavender-dim: oklch(88% 0.045 302);
+
+  /* ---- Semantic aliases ---- */
+  --bg-page:        var(--cream-50);
+  --bg-surface:     var(--paper-white);
+  --bg-surface-2:   var(--cream-100);
+  --bg-inverse:     var(--charcoal-900);
+  --bg-inverse-2:   var(--charcoal-700);
+
+  --text-primary:   var(--charcoal-900);
+  --text-secondary: var(--charcoal-500);
+  --text-inverse:   var(--paper-white);
+  --text-muted:     var(--charcoal-300);
+
+  --border-subtle:  rgba(20, 22, 26, 0.10);
+  --border-strong:  rgba(20, 22, 26, 0.22);
+  --border-inverse: rgba(250, 248, 243, 0.25);
+
+  --accent-primary:   var(--accent-pink);
+  --accent-secondary: var(--accent-lavender);
+  --accent-primary-soft:   var(--accent-pink-dim);
+  --accent-secondary-soft: var(--accent-lavender-dim);
+
+  --state-success: var(--moss-600);
+  --state-warning: var(--rust-500);
+  --state-info:    var(--slate-500);
+}

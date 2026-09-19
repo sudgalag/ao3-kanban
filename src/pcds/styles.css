@@ -1,0 +1,7 @@
+/* Photo Card Design System (PCDS) — single stylesheet entry.
+   Tokens and fonts are vendored verbatim from the design handoff. */
+@import "./tokens/colors.css";
+@import "./tokens/effects.css";
+@import "./tokens/spacing.css";
+@import "./tokens/typography.css";
+@import "./fonts/fonts.css";

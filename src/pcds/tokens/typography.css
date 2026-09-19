@@ -1,0 +1,31 @@
+/* Photo Card Design System — Typography tokens
+   Pairing: a clean geometric grotesk (photocard caption energy — think
+   the tracked-out white caps stamped across a fancam still) mashed
+   with a soft editorial serif italic (the romantic, sapphic-leaning
+   voice) — two different songs on one track, the "mixx-pop" idea.
+   Fonts are vendored locally (see cfg.extraFonts → fonts/) — no remote @import. */
+
+:root {
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif:   'Newsreader', Georgia, serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --text-2xs: 11px;
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-md:  16px;
+  --text-lg:  20px;
+  --text-xl:  26px;
+  --text-2xl: 34px;
+  --text-3xl: 48px;
+  --text-4xl: 68px;
+
+  --leading-tight: 1.05;
+  --leading-snug:  1.25;
+  --leading-normal: 1.5;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-widest: 0.18em;
+}

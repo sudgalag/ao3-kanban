@@ -1,0 +1,16 @@
+import type { Card } from "./types";
+
+/** Sample cards shown on first run (nothing in localStorage yet). Replace with your own. */
+export const SEED: Card[] = [
+  { id: 1, board: "Reading", col: "Reading", title: "the ninth hour, and the tenth", author: "ohseolbae", fandom: "NMIXX", ship: "Haewon/Lily", words: 48200, notes: "Ch. 9 of 12. Slow-burn tour fic; the Osaka chapter wrecked me.", url: "https://archiveofourown.org/works/50123001" },
+  { id: 2, board: "Reading", col: "To Read", title: "salt on the windowsill", author: "hedgerow_moss", fandom: "ITZY", ship: "Ryujin/Yeji", words: 12400, notes: "", url: "https://archiveofourown.org/works/50123002" },
+  { id: 3, board: "Reading", col: "To Read", title: "I Wanted To Say Something Else", author: "quietfilm", fandom: "LE SSERAFIM", ship: "Chaewon/Sakura", words: 6800, notes: "Rec from Jae. One-shot.", url: "https://archiveofourown.org/works/50123003" },
+  { id: 4, board: "Reading", col: "Rec'd", title: "a field guide to leaving", author: "denimstripe", fandom: "NMIXX", ship: "Sullyoon/Bae", words: 31000, notes: "", url: "https://archiveofourown.org/works/50123004" },
+  { id: 5, board: "Reading", col: "Finished", title: "Late Checkout", author: "rustplush", fandom: "ITZY", ship: "Chaeryeong/Yuna", words: 22900, notes: "Reread in winter. Ending still lands.", url: "https://archiveofourown.org/works/50123005" },
+  { id: 6, board: "Reading", col: "Finished", title: "photocard, slot three", author: "ohseolbae", fandom: "NMIXX", ship: "Jiwoo/Kyujin", words: 9100, notes: "", url: "https://archiveofourown.org/works/50123006" },
+  { id: 7, board: "Reading", col: "Dropped", title: "Every Version of the Sky", author: "anon_orbit", fandom: "LE SSERAFIM", ship: "Yunjin/Kazuha", words: 88000, notes: "Lost the thread around ch. 14.", url: "https://archiveofourown.org/works/50123007" },
+  { id: 8, board: "Writing", col: "Drafting", title: "hedge maze (working title)", author: "you", fandom: "NMIXX", ship: "Haewon/Lily", words: 7300, notes: "Need the greenhouse scene before the reveal.", url: "https://archiveofourown.org/works/new" },
+  { id: 9, board: "Writing", col: "Ideas", title: "roommates but the lease is metaphorical", author: "you", fandom: "NMIXX", ship: "Bae/Haewon", words: 0, notes: "Outline only.", url: "https://archiveofourown.org/works/new" },
+  { id: 10, board: "Writing", col: "Editing", title: "Group Shot", author: "you", fandom: "ITZY", ship: "Ryujin/Yeji", words: 15600, notes: "Beta notes back — tighten the middle.", url: "https://archiveofourown.org/works/new" },
+  { id: 11, board: "Writing", col: "Posted", title: "candid", author: "you", fandom: "LE SSERAFIM", ship: "Chaewon/Sakura", words: 4200, notes: "", url: "https://archiveofourown.org/works/50123011" },
+];
