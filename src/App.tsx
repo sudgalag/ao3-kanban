@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BOARDS } from "./lib/boards";
 import { SEED } from "./lib/seed";
 import { loadCards, saveCards } from "./lib/storage";
@@ -21,19 +21,31 @@ export interface AppProps {
 
 type Modal = null | "add" | "detail";
 
+/** Unique, increasing numeric id (ids are numbers in the stored format). */
+function nextId(cards: Card[]): number {
+  return Math.max(Date.now(), ...cards.map((c) => c.id + 1));
+}
+
 export default function App({ defaultBoard = "Reading", compact = false }: AppProps) {
   const [board, setBoard] = useState<BoardName>(defaultBoard);
   const [cards, setCards] = useState<Card[]>(() => loadCards() ?? SEED);
+  const initialCards = useRef(cards);
   const [filter, setFilter] = useState<string | null>(null);
   const [modal, setModal] = useState<Modal>(null);
   const [selId, setSelId] = useState<number | null>(null);
 
-  useEffect(() => saveCards(cards), [cards]);
+  // Persist after the first real change, so the sample seed is not written until touched.
+  useEffect(() => {
+    if (cards !== initialCards.current) saveCards(cards);
+  }, [cards]);
 
   const columns = BOARDS[board];
   const mine = useMemo(() => cards.filter((c) => c.board === board), [cards, board]);
   const facets = useMemo(() => [...new Set(mine.flatMap((c) => [c.fandom, c.ship]))].filter(Boolean), [mine]);
-  const shown = useMemo(() => (filter ? mine.filter((c) => c.fandom === filter || c.ship === filter) : mine), [mine, filter]);
+  const shown = useMemo(
+    () => (filter ? mine.filter((c) => c.fandom === filter || c.ship === filter) : mine),
+    [mine, filter],
+  );
 
   const update = useCallback((id: number, patch: Partial<Card>) => {
     setCards((cs) => cs.map((c) => (c.id === id ? { ...c, ...patch } : c)));
@@ -67,9 +79,9 @@ export default function App({ defaultBoard = "Reading", compact = false }: AppPr
 
   const addCard = (d: Draft, url: string) => {
     const card: Card = {
-      id: Date.now(),
+      id: nextId(cards),
       board,
-      col: columns.includes(d.col) ? d.col : columns[0],
+      col: columns.includes(d.col) ? d.col : (columns[0] ?? ""),
       title: d.title.trim() || "Untitled",
       author: d.author.trim() || "unknown",
       fandom: d.fandom.trim() || "—",
@@ -106,7 +118,9 @@ export default function App({ defaultBoard = "Reading", compact = false }: AppPr
       <PageDots count={columns.length} />
       {drag.ghost && <DragGhost ghost={drag.ghost} />}
       {modal === "add" && <AddSheet columns={columns} onAdd={addCard} onClose={closeModal} />}
-      {modal === "detail" && sel && <DetailSheet card={sel} columns={columns} onUpdate={update} onRemove={remove} onClose={closeModal} />}
+      {modal === "detail" && sel && (
+        <DetailSheet card={sel} columns={columns} onUpdate={update} onRemove={remove} onClose={closeModal} />
+      )}
     </div>
   );
 }

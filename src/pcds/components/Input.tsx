@@ -9,7 +9,12 @@ export interface InputProps {
   onChange?: (value: string) => void;
 }
 
-const wrapStyle: CSSProperties = { display: "flex", flexDirection: "column", gap: "6px", fontFamily: "var(--font-display)" };
+const wrapStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+  fontFamily: "var(--font-display)",
+};
 const labelStyle: CSSProperties = {
   fontSize: "var(--text-2xs)",
   letterSpacing: "var(--tracking-widest)",
@@ -19,7 +24,14 @@ const labelStyle: CSSProperties = {
 };
 
 /** PCDS Input — labeled text field. Uppercase tracked caption; border turns accent on focus. */
-export function Input({ label = "Display name", placeholder = "", value, defaultValue, type = "text", onChange }: InputProps) {
+export function Input({
+  label = "Display name",
+  placeholder = "",
+  value,
+  defaultValue,
+  type = "text",
+  onChange,
+}: InputProps) {
   const [focused, setFocused] = useState(false);
   const [internal, setInternal] = useState(defaultValue ?? "");
   const isControlled = value !== undefined;

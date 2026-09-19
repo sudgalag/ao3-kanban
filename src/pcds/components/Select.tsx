@@ -7,7 +7,12 @@ export interface SelectProps {
   onChange?: (value: string) => void;
 }
 
-const wrapStyle: CSSProperties = { display: "flex", flexDirection: "column", gap: "6px", fontFamily: "var(--font-display)" };
+const wrapStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+  fontFamily: "var(--font-display)",
+};
 const labelStyle: CSSProperties = {
   fontSize: "var(--text-2xs)",
   letterSpacing: "var(--tracking-widest)",

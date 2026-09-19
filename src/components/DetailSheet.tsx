@@ -24,12 +24,22 @@ export function DetailSheet({ card, columns, onUpdate, onRemove, onClose }: Prop
           <Badge tone={shipTone(card.ship)} label={card.ship} />
         </div>
       </div>
-      <Input label="Notes" placeholder="Add a note…" value={card.notes} onChange={(v) => onUpdate(card.id, { notes: v })} />
+      <Input
+        label="Notes"
+        placeholder="Add a note…"
+        value={card.notes}
+        onChange={(v) => onUpdate(card.id, { notes: v })}
+      />
       <div className="detail__move">
         <div className="eyebrow">Move to</div>
         <div className="detail__move-row">
           {columns.map((name) => (
-            <Tag key={name} label={name} selected={card.col === name} onClick={() => onUpdate(card.id, { col: name })} />
+            <Tag
+              key={name}
+              label={name}
+              selected={card.col === name}
+              onClick={() => onUpdate(card.id, { col: name })}
+            />
           ))}
         </div>
       </div>

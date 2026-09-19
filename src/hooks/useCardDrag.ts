@@ -73,7 +73,14 @@ export function useCardDrag(onDrop: (id: number, col: string) => void) {
     document.body.style.userSelect = "none";
     if (navigator.vibrate) navigator.vibrate(10);
     setDragId(p.id);
-    setGhost({ x: x - p.ox, y: y - p.oy, w: p.w, title: p.card.title, fandom: p.card.fandom, byline: byline(p.card.author) });
+    setGhost({
+      x: x - p.ox,
+      y: y - p.oy,
+      w: p.w,
+      title: p.card.title,
+      fandom: p.card.fandom,
+      byline: byline(p.card.author),
+    });
   }, []);
 
   const pointerMove = useCallback(
@@ -100,7 +107,7 @@ export function useCardDrag(onDrop: (id: number, col: string) => void) {
       } else if (p.mode === "drag") {
         const hit = document.elementFromPoint(e.clientX, e.clientY);
         const col = hit?.closest<HTMLElement>("[data-col]");
-        p.over = col ? col.dataset.col ?? null : null;
+        p.over = col ? (col.dataset.col ?? null) : null;
         if (p.main) {
           const r = p.main.getBoundingClientRect();
           if (e.clientX > r.right - EDGE_PX) p.main.scrollLeft += EDGE_STEP;

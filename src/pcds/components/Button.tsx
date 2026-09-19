@@ -20,7 +20,11 @@ const SIZES: Record<ButtonSize, CSSProperties> = {
 const VARIANTS: Record<ButtonVariant, CSSProperties> = {
   primary: { background: "var(--bg-inverse)", color: "var(--text-inverse)", border: "1px solid var(--bg-inverse)" },
   secondary: { background: "transparent", color: "var(--text-primary)", border: "1px solid var(--border-strong)" },
-  accent: { background: "var(--accent-primary)", color: "var(--text-inverse)", border: "1px solid var(--accent-primary)" },
+  accent: {
+    background: "var(--accent-primary)",
+    color: "var(--text-inverse)",
+    border: "1px solid var(--accent-primary)",
+  },
   ghost: { background: "transparent", color: "var(--text-secondary)", border: "1px solid transparent" },
 };
 

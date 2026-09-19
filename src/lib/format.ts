@@ -13,7 +13,7 @@ const TONES: BadgeTone[] = ["pink", "lavender", "moss", "neutral"];
 export function shipTone(ship: string): BadgeTone {
   let sum = 0;
   for (const ch of ship) sum += ch.charCodeAt(0);
-  return TONES[sum % TONES.length];
+  return TONES[sum % TONES.length] ?? "neutral";
 }
 
 export function byline(author: string): string {

@@ -39,48 +39,68 @@ export function AddSheet({ columns, onAdd, onClose }: Props) {
       fandom: meta?.fandom ?? "",
       ship: meta?.ship ?? "",
       words: meta ? String(meta.words) : "",
-      col: columns[0],
+      col: columns[0] ?? "",
       notes: "",
     });
   };
 
   const set = (k: keyof Draft) => (v: string) => setDraft((d) => (d ? { ...d, [k]: v } : d));
 
+  const submit = () => {
+    if (fetching) return;
+    if (draft) onAdd(draft, url.trim());
+    else void fetchDetails();
+  };
+
   return (
     <Sheet onClose={onClose} label="Add a fic">
-      <div className="eyebrow">Add a fic</div>
-      <Input
-        label="AO3 link"
-        placeholder="https://archiveofourown.org/works/…"
-        value={url}
-        onChange={(v) => {
-          setUrl(v);
-          setUrlError(false);
+      {/* A form so Enter in the link field fetches details. */}
+      <form
+        className="sheet__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
         }}
-      />
-      {urlError && <div className="sheet__error">That doesn't look like an AO3 work link.</div>}
-      {hint && <div className="sheet__hint">{hint}</div>}
-      {draft && (
-        <>
-          <div className="sheet__grid">
-            <Input label="Title" placeholder="" value={draft.title} onChange={set("title")} />
-            <Input label="Author" placeholder="" value={draft.author} onChange={set("author")} />
-            <Input label="Fandom" placeholder="" value={draft.fandom} onChange={set("fandom")} />
-            <Input label="Ship" placeholder="" value={draft.ship} onChange={set("ship")} />
-            <Input label="Words" placeholder="0" value={draft.words} onChange={set("words")} />
-            <Select label="Column" options={[...columns]} value={draft.col} onChange={set("col")} />
-          </div>
-          <Input label="Notes" placeholder="Why you saved it…" value={draft.notes} onChange={set("notes")} />
-        </>
-      )}
-      <div className="sheet__actions">
-        <Button variant="ghost" label="Cancel" onClick={onClose} />
-        {!draft ? (
-          <Button variant="primary" label={fetching ? "Fetching…" : "Fetch details"} disabled={fetching} onClick={fetchDetails} />
-        ) : (
-          <Button variant="accent" label="Add to board" onClick={() => onAdd(draft, url.trim())} />
+      >
+        <div className="eyebrow">Add a fic</div>
+        <Input
+          label="AO3 link"
+          placeholder="https://archiveofourown.org/works/…"
+          value={url}
+          onChange={(v) => {
+            setUrl(v);
+            setUrlError(false);
+          }}
+        />
+        {urlError && <div className="sheet__error">That doesn't look like an AO3 work link.</div>}
+        {hint && <div className="sheet__hint">{hint}</div>}
+        {draft && (
+          <>
+            <div className="sheet__grid">
+              <Input label="Title" placeholder="" value={draft.title} onChange={set("title")} />
+              <Input label="Author" placeholder="" value={draft.author} onChange={set("author")} />
+              <Input label="Fandom" placeholder="" value={draft.fandom} onChange={set("fandom")} />
+              <Input label="Ship" placeholder="" value={draft.ship} onChange={set("ship")} />
+              <Input label="Words" placeholder="0" value={draft.words} onChange={set("words")} />
+              <Select label="Column" options={[...columns]} value={draft.col} onChange={set("col")} />
+            </div>
+            <Input label="Notes" placeholder="Why you saved it…" value={draft.notes} onChange={set("notes")} />
+          </>
         )}
-      </div>
+        <div className="sheet__actions">
+          <Button variant="ghost" label="Cancel" onClick={onClose} />
+          {!draft ? (
+            <Button
+              variant="primary"
+              label={fetching ? "Fetching…" : "Fetch details"}
+              disabled={fetching}
+              onClick={fetchDetails}
+            />
+          ) : (
+            <Button variant="accent" label="Add to board" onClick={submit} />
+          )}
+        </div>
+      </form>
     </Sheet>
   );
 }

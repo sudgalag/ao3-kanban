@@ -15,13 +15,26 @@ React 19 + Vite + TypeScript. No UI framework: the app uses the Photo Card Desig
 
 ## Run
 
+Node 22 (see `.nvmrc`).
+
 ```sh
 npm install
-npm run dev        # http://localhost:5173
-npm test           # vitest
-npm run typecheck
-npm run build      # static site in dist/
+npm run dev          # http://localhost:5173
+npm run check        # typecheck + lint + format check + unit tests
+npm run test:e2e     # Playwright, builds and serves dist/ first (npx playwright install chromium once)
+npm run build        # static site in dist/
+npm run format       # prettier --write
 ```
+
+CI runs the same checks on every pull request and on pushes to `main`.
+
+## Conventions
+
+- TypeScript strict mode with `noUncheckedIndexedAccess`.
+- ESLint (typescript-eslint, react-hooks) plus a design-system rule: app code must use the PCDS `Button`, `Input` and `Select` instead of raw `<button>`, `<input>` and `<select>`. Only `src/pcds/` may use the raw elements.
+- Prettier formats everything except the vendored PCDS tokens and fonts, which stay verbatim from the handoff.
+- Sheets lock page scroll, trap focus, close on Escape and return focus to the opener.
+- The sample seed is only written to `localStorage` after the first real change.
 
 ## Fetching AO3 metadata
 
@@ -43,6 +56,7 @@ src/
   hooks/         useCardDrag — pointer-event drag, touch pan, auto-scroll
   components/    Header, FilterRow, Column, FicCard, DragGhost, sheets
   App.tsx        state: board, cards, filter, open sheet
+e2e/             Playwright tests (desktop and mobile profiles)
 ```
 
 `App` takes two optional props: `defaultBoard` (`"Reading"` | `"Writing"`) and `compact` (hides notes on cards).

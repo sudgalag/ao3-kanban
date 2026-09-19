@@ -13,7 +13,7 @@ const WORK_RE = /archiveofourown\.org\/works\/(\d+)/;
 /** Returns the numeric work ID from an AO3 work URL, or null when the link is not a work link. */
 export function parseWorkId(url: string): string | null {
   const m = url.trim().match(WORK_RE);
-  return m ? m[1] : null;
+  return m?.[1] ?? null;
 }
 
 /** Canonical work URL for a work ID. */
@@ -34,7 +34,9 @@ export function parseWorkHtml(html: string): WorkMeta | null {
   if (!title) return null;
 
   const authorLinks = [...doc.querySelectorAll("#workskin h3.byline a[rel='author']")];
-  const author = authorLinks.length ? authorLinks.map(text).join(", ") : text(doc.querySelector("#workskin h3.byline")) || "Anonymous";
+  const author = authorLinks.length
+    ? authorLinks.map(text).join(", ")
+    : text(doc.querySelector("#workskin h3.byline")) || "Anonymous";
 
   const fandom = text(doc.querySelector("dd.fandom.tags a.tag"));
   const ship = text(doc.querySelector("dd.relationship.tags a.tag"));
