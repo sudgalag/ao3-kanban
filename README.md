@@ -38,13 +38,14 @@ CI runs the same checks on every pull request and on pushes to `main`.
 
 ## Deploy
 
-Every push to `main` builds the site and publishes it to GitHub Pages at **fic.jianxin.tw** (see `.github/workflows/deploy.yml`; the hostname lives in `public/CNAME`).
+Every push to `main` builds the site and publishes it to GitHub Pages at **fic.jianxin.tw** (see `.github/workflows/deploy.yml`). `public/CNAME` documents the hostname, but GitHub ignores that file for Actions-based deploys; the domain is set in the repository settings.
 
 One-time setup:
 
-1. In the repository: Settings → Pages → Source: **GitHub Actions**. The workflow also tries to enable this on its first run.
+1. In the repository: Settings → Pages → Source: **GitHub Actions**. This must be done by hand once; the workflow token is not allowed to enable Pages.
 2. At the DNS host (Gandi), add a record: `fic` `CNAME` `sudgalag.github.io.` A TTL of 1800 seconds is fine.
-3. After the first deploy, in Settings → Pages, confirm the custom domain shows a green check, then turn on **Enforce HTTPS**. Certificate issue can take a few minutes after DNS resolves.
+3. Settings → Pages → Custom domain: enter `fic.jianxin.tw` and save. GitHub checks DNS, then requests a Let's Encrypt certificate itself; nothing to upload.
+4. Once the domain shows a green check and the certificate exists (minutes, sometimes up to an hour), turn on **Enforce HTTPS**.
 
 Optional: deploy the AO3 proxy worker in `proxy/` so "Fetch details" works on the live site. See `proxy/README.md`.
 
