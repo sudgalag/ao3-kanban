@@ -1,0 +1,7 @@
+name = "ao3-kanban-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Comma-separated list of origins allowed to call this worker.
+ALLOWED_ORIGINS = "https://fic.jianxin.tw,http://localhost:5173,http://localhost:4173"
