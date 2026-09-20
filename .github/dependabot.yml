@@ -5,8 +5,16 @@ updates:
     schedule:
       interval: weekly
     groups:
+      # Minor and patch bumps arrive as one PR. Major bumps arrive one PR each
+      # so a single incompatible package (e.g. a TypeScript major that
+      # typescript-eslint does not support yet) cannot block every other update.
       dev-dependencies:
         dependency-type: development
+        update-types: ["minor", "patch"]
+    ignore:
+      # typescript-eslint 8.x pins typescript <6.1. Drop this once it supports 7.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
