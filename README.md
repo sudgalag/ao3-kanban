@@ -36,12 +36,24 @@ CI runs the same checks on every pull request and on pushes to `main`.
 - Sheets lock page scroll, trap focus, close on Escape and return focus to the opener.
 - The sample seed is only written to `localStorage` after the first real change.
 
+## Deploy
+
+Every push to `main` builds the site and publishes it to GitHub Pages at **fic.jianxin.tw** (see `.github/workflows/deploy.yml`; the hostname lives in `public/CNAME`).
+
+One-time setup:
+
+1. In the repository: Settings → Pages → Source: **GitHub Actions**. The workflow also tries to enable this on its first run.
+2. At the DNS host (Gandi), add a record: `fic` `CNAME` `sudgalag.github.io.` A TTL of 1800 seconds is fine.
+3. After the first deploy, in Settings → Pages, confirm the custom domain shows a green check, then turn on **Enforce HTTPS**. Certificate issue can take a few minutes after DNS resolves.
+
+Optional: deploy the AO3 proxy worker in `proxy/` so "Fetch details" works on the live site. See `proxy/README.md`.
+
 ## Fetching AO3 metadata
 
 AO3 has no public API and sends no CORS headers, so a browser cannot read a work page directly.
 
 - **Dev server**: `vite.config.ts` proxies `/ao3/*` to `https://archiveofourown.org`, so "Fetch details" fills in title, author, fandom, ship and word count.
-- **Deployed build**: set `VITE_AO3_PROXY` at build time to the base URL of a proxy that forwards `GET <base>/works/<id>` to AO3 and adds CORS headers (for example a small Cloudflare Worker). Without it, the sheet asks you to fill in the details by hand.
+- **Deployed build**: set `VITE_AO3_PROXY` at build time to the base URL of a proxy that forwards `GET <base>/works/<id>` to AO3 and adds CORS headers. `proxy/` contains a ready-made Cloudflare Worker. Without it, the sheet asks you to fill in the details by hand.
 
 Works that are restricted to logged-in users, or hidden behind the adult-content wall in ways `view_adult=true` does not cover, fall back to manual entry as well.
 
