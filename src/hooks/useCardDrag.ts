@@ -52,7 +52,9 @@ export function useCardDrag(onDrop: (id: number, col: string) => void) {
   const pd = useRef<Pending | null>(null);
   const suppress = useRef(false);
   const onDropRef = useRef(onDrop);
-  onDropRef.current = onDrop;
+  useEffect(() => {
+    onDropRef.current = onDrop;
+  }, [onDrop]);
   const handlers = useRef<{ move: (e: PointerEvent) => void; up: (e: PointerEvent) => void } | null>(null);
 
   const detach = useCallback(() => {
