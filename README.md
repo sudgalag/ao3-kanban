@@ -42,7 +42,7 @@ Every push to `main` builds the site and publishes it to GitHub Pages at **fic.j
 
 One-time setup:
 
-1. In the repository: Settings → Pages → Source: **GitHub Actions**. The workflow also tries to enable this on its first run.
+1. In the repository: Settings → Pages → Source: **GitHub Actions**. This must be done by hand once; the workflow token is not allowed to enable Pages.
 2. At the DNS host (Gandi), add a record: `fic` `CNAME` `sudgalag.github.io.` A TTL of 1800 seconds is fine.
 3. After the first deploy, in Settings → Pages, confirm the custom domain shows a green check, then turn on **Enforce HTTPS**. Certificate issue can take a few minutes after DNS resolves.
 
