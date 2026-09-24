@@ -9,6 +9,8 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:4173",
     trace: "on-first-retry",
+    // Point at a locally installed Chromium when the Playwright download is unavailable.
+    ...(process.env.PW_CHROMIUM ? { launchOptions: { executablePath: process.env.PW_CHROMIUM } } : {}),
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },

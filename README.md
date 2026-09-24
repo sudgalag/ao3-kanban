@@ -7,7 +7,13 @@ Two boards, switched by a segmented control:
 - **Reading**: Rec'd → To Read → Reading → Finished → Dropped
 - **Writing**: Ideas → Drafting → Editing → Posted
 
-Cards hold title, author, fandom, ship, word count and a personal note. Add a fic by pasting an AO3 work URL. Move cards by drag-and-drop (mouse or touch) or from the "Move to" row in the card sheet. Filter by fandom or ship. Everything is saved in `localStorage` under the key `ficboard.v1`.
+Cards hold title, author, fandom, ship, word count and a personal note. Add a fic by pasting an AO3 work URL. Move cards by drag-and-drop (mouse or touch) or from the "Move to" row in the card sheet. Filter by fandom or ship.
+
+## Where your data lives
+
+- **Always**: in the browser's `localStorage` (`ficboard.v1`, plus a timestamp in `ficboard.updatedAt.v1`). Per browser, per device, per site address. Clearing site data removes it.
+- **Backup**: the Sync sheet (header button) exports the board as a JSON file and imports one back. Import replaces the whole board.
+- **Sync (optional)**: the same sheet takes a worker URL and a token. The board is then stored in Cloudflare KV through the worker in `proxy/`, and every device with the same token sees one board. Last write wins, decided by the timestamp. Local changes are pushed two seconds after you stop editing; the board keeps working offline and catches up when the network returns. See `proxy/README.md` for setup.
 
 ## Stack
 

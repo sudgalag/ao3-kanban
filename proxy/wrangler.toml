@@ -5,3 +5,11 @@ compatibility_date = "2026-09-01"
 [vars]
 # Comma-separated list of origins allowed to call this worker.
 ALLOWED_ORIGINS = "https://fic.jianxin.tw,http://localhost:5173,http://localhost:4173"
+
+# Board sync storage. Create the namespace once with
+#   npx wrangler kv namespace create BOARD
+# and paste the printed id below. Then set the token with
+#   npx wrangler secret put SYNC_TOKEN
+[[kv_namespaces]]
+binding = "BOARD"
+id = "REPLACE_WITH_NAMESPACE_ID"
